@@ -20,7 +20,7 @@ const restaurantsSchema = new mongoose.Schema({
     phone: {
         type: String
     },
-    website: URL,
+    website: String,
     openingYear: Number,
     rating: {
         type: Number,
@@ -32,7 +32,7 @@ const restaurantsSchema = new mongoose.Schema({
         type: [String]
     },
     photoUrls :{
-        type:[URL]
+        type:[String]
     }
 
 },
@@ -40,3 +40,7 @@ const restaurantsSchema = new mongoose.Schema({
     timestamps: true
 }
 )
+
+const Restaurants = mongoose.model("Restaurants", restaurantsSchema)
+
+module.exports = Restaurants

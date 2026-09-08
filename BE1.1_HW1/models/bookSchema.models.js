@@ -10,7 +10,7 @@ author:{
     required: true
 },
 publishedYear: {
-    type: String,
+    type: Number,
     required: true
 },
 genre:{
@@ -36,7 +36,7 @@ summary: {
     type: String
 },
 coverImageUrl:{
- type: URL,
+ type: String,
 
 }
 },

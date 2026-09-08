@@ -8,12 +8,14 @@ const noteSchema = new mongoose.Schema({
 
     content:{
         type: String,
-        enum: ['Personal', 'Work', 'Study', 'Ideas', 'Journal', 'Other']
     },
     tag:{
         type:[String],
     },
-    
+    category: {
+        type:[String],
+        enum: ['Personal', 'Work', 'Study', 'Ideas', 'Journal', 'Other']
+    }
 },
 {
         timestamps: true

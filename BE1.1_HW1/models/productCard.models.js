@@ -1,7 +1,7 @@
 const mongoose = require("mongoose")
 
 const productCard = new mongoose.Schema({
-    productImg: URL,
+    productImg: String,
     productInfo: String,
     start: Number,
     ratings: {
@@ -20,3 +20,7 @@ const productCard = new mongoose.Schema({
     description: String,
 
 })
+
+const Product =  mongoose.model("Product",productCard)
+
+module.exports = Product

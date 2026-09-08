@@ -2,10 +2,10 @@ const mongoose = require("mongoose")
 
 const creditCard = new mongoose.Schema({
 cardName: String,
-id: String,
-expireData: String,
+cardNumber: String,
+expiryData: String,
 name: String,
-logo: URL
+logo: String
 })
 
 const CreditCard = mongoose.model("CreditCard", creditCard)

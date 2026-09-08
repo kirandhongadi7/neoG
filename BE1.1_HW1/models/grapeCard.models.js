@@ -1,8 +1,8 @@
 const mongoose = require("mongoose")
 
 const grapeCard = new mongoose.Schema({
-    image: URL,
-    like: URL,
+    image: String,
+    like: Boolean,
     name: String,
     info: String,
     calories: Number,

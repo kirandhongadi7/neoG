@@ -1,8 +1,10 @@
 const mongoose = require("mongoose");
 
 const employeeSchema  = new mongoose.Schema({
+
     empName: String,
     empDepartment: String,
+    empImgUrl: String,
     empId: String,
     empDOB: String,
     empEmail: String,
