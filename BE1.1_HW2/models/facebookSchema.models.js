@@ -6,13 +6,13 @@ const facebookSchema = new mongoose.Schema({
         required: true
     },
     isBlueTick: {
-        type: Booleam,
+        type: Boolean,
         default: false,
         required: true
 
     },
     createPostDate: {
-        type: String,
+        type: Date,
         required: true
     },
     postText: {

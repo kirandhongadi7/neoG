@@ -13,7 +13,7 @@ const noteSchema = new mongoose.Schema({
         type:[String],
     },
     category: {
-        type:[String],
+        type:String,
         enum: ['Personal', 'Work', 'Study', 'Ideas', 'Journal', 'Other']
     }
 },

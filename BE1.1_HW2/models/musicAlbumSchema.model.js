@@ -34,7 +34,7 @@ isExplicit :{
     default: false
 },
 isAvailableOnStreaming :{
-    type:String,
+    type: Boolean,
     default:false
 },
 isFeatured: {
