@@ -3,23 +3,28 @@ const dns = require("dns")
 const Restaurant = require("./models/restaurant.model")
 
 dns.setServers(["1.1.1.1","8.8.8.8"])
-initializeDatabase()
+
 
 const newRestaurant = {
-  name: "Cha Chi",
-  cuisine: ["Spanish"],
-  location: "123 Main Street, Anytown",
-  rating: 4.0,
+  name: "Somi",
+  cuisine: ["Greek"],
+  location: "11 Main Road, Gem",
+  rating: 4.3,
   reviews: [],
-  website: "https://example.com",
-  phoneNumber: "+1234567890",
-  openHours: "Mon-Sun: 11:00 AM - 10:00 PM",
+  website: "https://somi-example.com",
+  phoneNumber: "+1234997390",
+  openHours: "Tue-Sun: 11:00 AM - 10:00 PM",
   priceRange: "$$ (11-30)",
-  reservationsNeeded: true,
+  reservationsNeeded: false,
   isDeliveryAvailable: true,
-  menuUrl: "https://example.com/menu",
-  photos: ["https://example.com/photo1.jpg", "https://example.com/photo2.jpg"],
+  menuUrl: "https://somi-example.com/menu",
+  photos: ["https://example.com/somi-photo1.jpg", "https://example.com/somi-photo2.jpg"],
 };
+
+async function dbconnect(){
+await initializeDatabase()
+}
+dbconnect()
 
 async function seedData(newRestaurant){
 
@@ -38,3 +43,80 @@ async function seedData(newRestaurant){
 
 
 seedData(newRestaurant)
+
+async function showAllRestaurants(){
+    try{
+        const allRes = await Restaurant.find()
+        console.log(allRes);
+        
+    }catch(e){
+        console.log("Error while find",e);
+        
+    }
+}
+showAllRestaurants()
+
+async function readResByName(resName){
+    try{
+        const res = await Restaurant.findOne({name: resName})
+        console.log(res);
+        
+    }
+    catch(e){
+        console.log("Error while read",e);
+        
+    }
+
+}
+readResByName("Somi")
+
+
+async function findReservationTrue(){
+    try{
+        const res = await Restaurant.find({reservationsNeeded: true})
+        console.log(res);
+        
+    }
+    catch(e) {
+        console.log("error while find",e);
+        
+    }
+}
+
+findReservationTrue()
+
+async function findDeliveryTrue(){
+    try{
+        const res = await Restaurant.find({isDeliveryAvailable: true})
+        console.log(res);
+        
+    }catch(e){
+        console.log("Error while find",e);
+        
+    }
+}
+findDeliveryTrue()
+
+async function readPhoneNumber(number){
+    try{
+        const res = await Restaurant.findOne({phoneNumber: number})
+        console.log(res);
+        
+    }
+    catch(e){
+        console.log("Error while read");
+        
+    }
+}
+readPhoneNumber("+1288997392")
+
+async function findCuisine(cuisine){
+        try{
+            const res = await Restaurant.find({cuisine:cuisine})
+            console.log(res);
+        }
+        catch(e){
+            throw e
+        }
+}
+findCuisine("Italian")
