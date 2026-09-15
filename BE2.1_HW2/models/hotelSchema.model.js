@@ -20,6 +20,9 @@ const hotelSchema = new mongoose.Schema({
         max: 5,
         default: 0
     },
+    reviews:{
+      type: [String],
+    },
     website:{
         type: String,
     },

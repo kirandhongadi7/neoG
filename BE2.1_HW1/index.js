@@ -42,7 +42,7 @@ async function seedData(newRestaurant){
 }
 
 
-seedData(newRestaurant)
+// seedData(newRestaurant)
 
 async function showAllRestaurants(){
     try{
@@ -54,7 +54,7 @@ async function showAllRestaurants(){
         
     }
 }
-showAllRestaurants()
+// showAllRestaurants()
 
 async function readResByName(resName){
     try{
@@ -68,7 +68,7 @@ async function readResByName(resName){
     }
 
 }
-readResByName("Somi")
+// readResByName("Somi")
 
 
 async function findReservationTrue(){
@@ -83,7 +83,7 @@ async function findReservationTrue(){
     }
 }
 
-findReservationTrue()
+// findReservationTrue()
 
 async function findDeliveryTrue(){
     try{
@@ -95,7 +95,7 @@ async function findDeliveryTrue(){
         
     }
 }
-findDeliveryTrue()
+// findDeliveryTrue()
 
 async function readPhoneNumber(number){
     try{
@@ -108,7 +108,7 @@ async function readPhoneNumber(number){
         
     }
 }
-readPhoneNumber("+1288997392")
+// readPhoneNumber("+1288997392")
 
 async function findCuisine(cuisine){
         try{
@@ -119,4 +119,43 @@ async function findCuisine(cuisine){
             throw e
         }
 }
-findCuisine("Italian")
+// findCuisine("Italian")
+
+
+// BE2.3_HW1
+
+
+async function updateResRating(resId,updatedRating){
+  try{
+   const res = await Restaurant.findByIdAndUpdate(resId,updatedRating,{new:true})
+  console.log(res);
+  }catch(e){
+    throw e
+  }
+  
+}
+// updateResRating('6aa649c69ae238eaa71a3c20',{rating:4.1})
+
+
+async function updateResName(resName,updateName){
+    try{
+        const res  = await Restaurant.findOneAndUpdate({name: resName}, updateName,{new:true})
+        console.log(res);
+        
+    }catch(e){
+        throw e
+    }
+}
+
+// updateResName("Somi", {name:"Som Sarovar"})
+
+async function updateResDelivery(phoneNumber,updateDelivery){
+try{
+    const res = await Restaurant.findOneAndUpdate({phoneNumber: phoneNumber},updateDelivery,{new:true})
+    console.log(res);
+}catch(e){
+    throw e
+}
+}
+
+updateResDelivery("+1288997392",{isDeliveryAvailable: true})

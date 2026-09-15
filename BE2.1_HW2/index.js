@@ -62,7 +62,7 @@ async function seedData(newHotel){
 }
 
 
-seedData(newHotel)
+// seedData(newHotel)
 
 async function logAllHotels(){
     try{
@@ -76,7 +76,7 @@ async function logAllHotels(){
 
 }
 
-logAllHotels()
+// logAllHotels()
 
 async function logHotelByName(hotelName){
     try{
@@ -89,7 +89,7 @@ async function logHotelByName(hotelName){
     }
 }
 
-logHotelByName("Lake View")
+// logHotelByName("Lake View")
 
 async function hotelWithParkSpace(){
     try{
@@ -101,7 +101,7 @@ async function hotelWithParkSpace(){
         throw e
     }
 } 
-hotelWithParkSpace()
+// hotelWithParkSpace()
 async function logResAvailable(){
     try{
     const hotel = await Hotel.find({isRestaurantAvailable: true})
@@ -113,7 +113,7 @@ async function logResAvailable(){
     }
 }
 
-logResAvailable()
+// logResAvailable()
 
 async function logMidRange(category){
     try{
@@ -125,7 +125,7 @@ async function logMidRange(category){
     }
 }
 
-logMidRange("Mid-Range")
+// logMidRange("Mid-Range")
 async function logHotelByPrice(priceRange){
     try{
            const hotel = await Hotel.find({priceRange: priceRange})
@@ -137,7 +137,7 @@ async function logHotelByPrice(priceRange){
         throw e
     }
 }
-logHotelByPrice("$$$$ (61+)")
+// logHotelByPrice("$$$$ (61+)")
 
 async function logHotelByRating(rating){
     try{
@@ -150,7 +150,7 @@ console.log(hotel);
     }
 }
 
-logHotelByRating(4.0)
+// logHotelByRating(4.0)
 
 async function logHotelByPhoneNumber(phoneNumber){
     try{
@@ -163,4 +163,43 @@ async function logHotelByPhoneNumber(phoneNumber){
     }
 
 }
-logHotelByPhoneNumber("+1299655890")
+// logHotelByPhoneNumber("+1299655890")
+
+//BE2.3_HW
+
+async function updateCheckoutTime(hotelId, updatedCheckoutTime){
+
+    try{
+        const hotel = await Hotel.findByIdAndUpdate(hotelId, updatedCheckoutTime,{new:true})
+        console.log(hotel);
+        
+    }catch(e){
+        throw e
+    }
+}
+// updateCheckoutTime('6aa7f777956d11587a158ce4',{checkOutTime:"11:00 AM"})
+
+async function UpdateHotelRating(hotelName,updetedRating){
+    try{
+       const hotel = await Hotel.findOneAndUpdate({name:hotelName}, updetedRating,{new:true})
+       console.log(hotel);
+       
+    }catch(e){
+        throw e
+    }
+    
+}
+
+UpdateHotelRating("Sunset Resort",{rating: 4.2})
+
+
+async function UpdateHotelPhoneNumber(phoneNumber,updatedPhoneNumber){
+    try{
+        const hotel = await Hotel.findOneAndUpdate({phoneNumber:phoneNumber},updatedPhoneNumber,{new:true})
+        console.log(hotel);  
+    }catch(e){
+        throw e
+    }
+}
+
+UpdateHotelPhoneNumber("+1299655890",{phoneNumber: "+1997687392"})
