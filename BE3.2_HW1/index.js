@@ -37,6 +37,12 @@ app.post("/books", (req,res) =>{
    })
 })
 
+app.get("/books",(req,res) =>{
+    res.json({
+        books: books
+    })
+})
+
 const todos = [
 
   { id: 1, title: 'Water the plants', day: 'Saturday' },
@@ -62,6 +68,12 @@ app.post("/todos",(req,res) =>{
 
     res.status(201).json({
         message: "Successfully added todo",
+        todos: todos
+    })
+})
+
+app.get("/todos",(req,res) =>{
+    res.json({
         todos: todos
     })
 })
