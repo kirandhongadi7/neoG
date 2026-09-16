@@ -158,4 +158,29 @@ try{
 }
 }
 
-updateResDelivery("+1288997392",{isDeliveryAvailable: true})
+// updateResDelivery("+1288997392",{isDeliveryAvailable: true})
+
+
+async function deleteRestaurantById(resId){
+    try{
+         const res = await Restaurant.findByIdAndDelete(resId)
+         console.log("Deleted successfully");
+         
+    }catch(e){
+        throw e
+    }
+}
+
+// deleteRestaurantById("6aa56efc92e99469f32a2043")
+
+async function deleteRestaurantByName(resName){
+    try{
+       const res = await Restaurant.findOneAndDelete({name: resName})
+       console.log("Restaurant is deleted");
+       
+    }catch(e){
+        throw e
+    }
+}
+
+deleteRestaurantByName("Cha Cha")

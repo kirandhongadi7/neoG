@@ -190,7 +190,7 @@ async function UpdateHotelRating(hotelName,updetedRating){
     
 }
 
-UpdateHotelRating("Sunset Resort",{rating: 4.2})
+// UpdateHotelRating("Sunset Resort",{rating: 4.2})
 
 
 async function UpdateHotelPhoneNumber(phoneNumber,updatedPhoneNumber){
@@ -202,4 +202,26 @@ async function UpdateHotelPhoneNumber(phoneNumber,updatedPhoneNumber){
     }
 }
 
-UpdateHotelPhoneNumber("+1299655890",{phoneNumber: "+1997687392"})
+// UpdateHotelPhoneNumber("+1299655890",{phoneNumber: "+1997687392"})
+
+async function deleteHotelById(hotelId){
+    try{
+        await Hotel.findByIdAndDelete(hotelId)
+        console.log("Successfully Deleted");
+    }catch(e){
+        throw e
+    }
+}
+
+// deleteHotelById("6aa637db93a48307970b03e0")
+
+async function deleteHotelByPhoneNumber(phoneNumber) {
+    try{
+        await Hotel.findOneAndDelete({phoneNumber:phoneNumber})
+        console.log("Successfully Deleted");
+        
+    }catch(e){
+        throw e
+    }
+}
+deleteHotelByPhoneNumber("+1997687392")
