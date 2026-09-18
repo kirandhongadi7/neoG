@@ -1,0 +1,19 @@
+{
+  "dependencies": {
+    "dotenv": "^18.0.0",
+    "express": "^5.2.1"
+  },
+  "name": "be3.3_hw1",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "node index.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs"
+}
