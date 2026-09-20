@@ -26,7 +26,7 @@ app.delete("/books/:id",(req,res) =>{
 
     if(index == -1 ){
        return res.status(404).json({
-        Error: "Book Not Fount 404"
+        Error: "Book Not Fount"
        })
     }
 
