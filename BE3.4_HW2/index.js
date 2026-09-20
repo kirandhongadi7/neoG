@@ -16,7 +16,7 @@ const movies = [
 ];
 
 
-// POST route - Update movie
+
 app.post("/movies/:id", (req, res) => {
 
     const movieId = parseInt(req.params.id);
@@ -52,7 +52,7 @@ app.post("/movies/:id", (req, res) => {
 });
 
 
-// GET route - Get all movies
+
 app.get("/movies", (req, res) => {
 
     res.json({
@@ -62,7 +62,7 @@ app.get("/movies", (req, res) => {
 });
 
 
-// Items array
+
 const items = [
 
     { id: 1, itemName: "Spoon", color: "Silver", quantity: 8 },
@@ -74,7 +74,7 @@ const items = [
 ];
 
 
-// POST route - Update item
+
 app.post("/items/:id", (req, res) => {
 
     const itemId = parseInt(req.params.id);
@@ -111,7 +111,7 @@ app.post("/items/:id", (req, res) => {
 });
 
 
-// GET route - Get all items
+
 app.get("/items", (req, res) => {
 
     res.json({
