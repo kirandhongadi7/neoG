@@ -1,57 +1,40 @@
 const {initializeDatabase} = require("./db/db.connect")
 const dns = require("dns")
 const Hotel = require("./models/hotelSchema.model")
+const express= require("express")
+const app = express()
+
+app.use(express.json())
 
 dns.setServers(["1.1.1.1","8.8.8.8"])
-initializeDatabase()
 
-const newHotel = [
-  {
-     name: "Lake View",
-  category: "Mid-Range",
-  location: "124 Main Street, Anytown",
-  rating: 3.2,
-  reviews: [],
-  website: "https://lake-view-example.com",
-  phoneNumber: "+1234555890",
-  checkInTime: "2:00 PM",
-  checkOutTime: "12:00 PM",
-  amenities: ["Laundry", "Boating"],
-  priceRange: "$$$ (31-60)",
-  reservationsNeeded: true,
-  isParkingAvailable: false,
-  isWifiAvailable: true,
-  isPoolAvailable: false,
-  isSpaAvailable: false,
-  isRestaurantAvailable: false,
-  photos: ["https://example.com/hotel1-photo1.jpg", "https://example.com/hotel1-photo2.jpg"],
-  },
-  { name: "Sunset Resort",
-  category: "Resort",
-  location: "12 Main Road, Anytown",
-  rating: 4.0,
-  reviews: [],
-  website: "https://sunset-example.com",
-  phoneNumber: "+1299655890",
-  checkInTime: "2:00 PM",
-  checkOutTime: "11:00 AM",
-  amenities: ["Room Service", "Horse riding", "Boating", "Kids Play Area", "Bar"],
-  priceRange: "$$$$ (61+)",
-  reservationsNeeded: true,
-  isParkingAvailable: true,
-  isWifiAvailable: true,
-  isPoolAvailable: true,
-  isSpaAvailable: true,
-  isRestaurantAvailable: true,
-  photos: ["https://example.com/hotel2-photo1.jpg", "https://example.com/hotel2-photo2.jpg"],
-}
-];
+
+// const newHotel = { name: "Sunset Resort",
+//   category: "Resort",
+//   location: "12 Main Road, Anytown",
+//   rating: 4.0,
+//   reviews: [],
+//   website: "https://sunset-example.com",
+//   phoneNumber: "+1299655890",
+//   checkInTime: "2:00 PM",
+//   checkOutTime: "11:00 AM",
+//   amenities: ["Room Service", "Horse riding", "Boating", "Kids Play Area", "Bar"],
+//   priceRange: "$$$$ (61+)",
+//   reservationsNeeded: true,
+//   isParkingAvailable: true,
+//   isWifiAvailable: true,
+//   isPoolAvailable: true,
+//   isSpaAvailable: true,
+//   isRestaurantAvailable: true,
+//   photos: ["https://example.com/hotel2-photo1.jpg", "https://example.com/hotel2-photo2.jpg"],
+// }
 
 async function seedData(newHotel){
 
     try{
 
-        const savedData = await Hotel.insertMany(newHotel)
+        const newOne = new Hotel(newHotel)
+        const savedData = await newOne.save() 
         console.log("Seeded successfully in DB",savedData);
         
     }
@@ -67,7 +50,8 @@ async function seedData(newHotel){
 async function logAllHotels(){
     try{
         const allHotels = await Hotel.find()
-        console.log(allHotels);
+        // console.log(allHotels);
+        return allHotels
         
     }
     catch(e){
@@ -76,12 +60,26 @@ async function logAllHotels(){
 
 }
 
+//1 To read all hotels
+
+app.get("/hotels", async(req,res) =>{
+    const hotels = await logAllHotels()
+
+    if(!hotels){
+      res.status(404).send("Hotel not found")
+      return
+    }
+
+    res.status(200).json(hotels)
+})
+
 // logAllHotels()
 
 async function logHotelByName(hotelName){
     try{
        const hotel = await Hotel.findOne({name: hotelName})
-       console.log(hotel);
+    //    console.log(hotel);
+       return hotel
        
     }
     catch(e){
@@ -90,6 +88,16 @@ async function logHotelByName(hotelName){
 }
 
 // logHotelByName("Lake View")
+//2 To read a hotel by its name
+app.get("/hotels/:hotelName",async(req,res) =>{
+    const hotelName = req.params.hotelName
+   const hotel = await logHotelByName(hotelName)
+    if(!hotel){
+      res.status(404).send("Hotel not found")
+      return
+    }
+    res.status(200).json(hotel)
+})
 
 async function hotelWithParkSpace(){
     try{
@@ -141,8 +149,9 @@ async function logHotelByPrice(priceRange){
 
 async function logHotelByRating(rating){
     try{
-const hotel = await Hotel.find({rating: rating})
-console.log(hotel);
+const hotel = await Hotel.findOne({rating: rating})
+// console.log(hotel);
+return hotel
 
     }
     catch(e){
@@ -151,11 +160,23 @@ console.log(hotel);
 }
 
 // logHotelByRating(4.0)
+//4 To read hotel by rating
+app.get("/hotels/rating/:hotelRating",async (req,res) =>{
+    const hotelRating = Number(req.params.hotelRating)
+    const hotel = await logHotelByRating(hotelRating)
+
+     if(!hotel){
+      res.status(404).send("Hotel not found")
+      return
+    }
+
+    res.status(200).json(hotel)
+})
 
 async function logHotelByPhoneNumber(phoneNumber){
     try{
         const hotel = await Hotel.findOne({phoneNumber: phoneNumber})
-        console.log(hotel);
+        return hotel
         
     }
     catch(e){
@@ -164,6 +185,40 @@ async function logHotelByPhoneNumber(phoneNumber){
 
 }
 // logHotelByPhoneNumber("+1299655890")
+//3 To read a hotel by phone number
+app.get("/hotels/directory/:phoneNumber", async(req,res) =>{
+    const phoneNum= req.params.phoneNumber
+    const hotel = await logHotelByPhoneNumber(phoneNum)
+
+     if(!hotel){
+      res.status(404).send("Hotel not found")
+      return
+    }
+    res.status(200).json(hotel)
+})
+
+//5 To read all hotels by category.
+
+async function logHotelByCategory(category){
+    try{
+        const hotel = await Hotel.find({category: category})
+        return hotel
+    }catch(e){
+        throw e
+    }
+}
+
+app.get("/hotels/category/:hotelCategory", async (req,res) =>{
+    const hotelCategory = req.params.hotelCategory
+    const hotel = await logHotelByCategory(hotelCategory)
+
+     if(!hotel){
+      res.status(404).send("Hotel not found")
+      return
+    }
+
+    res.status(200).json(hotel)
+})
 
 //BE2.3_HW
 
@@ -224,4 +279,16 @@ async function deleteHotelByPhoneNumber(phoneNumber) {
         throw e
     }
 }
-deleteHotelByPhoneNumber("+1997687392")
+// deleteHotelByPhoneNumber("+1997687392")
+
+const PORT = process.env.PORT
+
+initializeDatabase().then(()=>{
+    app.listen(PORT,()=>{
+    console.log("Server connected");
+    
+})
+}).catch((e) =>{
+    console.log("Failed to connect DB",e);
+    
+})
