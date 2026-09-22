@@ -249,18 +249,19 @@ async function updateCheckoutTime(hotelId, updatedCheckoutTime){
 }
 // updateCheckoutTime('6aa7f777956d11587a158ce4',{checkOutTime:"11:00 AM"})
 
-async function UpdateHotelRating(hotelName,updetedRating){
+async function updateHotelRating(hotelName,updetedRating){
     try{
        const hotel = await Hotel.findOneAndUpdate({name:hotelName}, updetedRating,{new:true})
-       console.log(hotel);
+    //    console.log(hotel);
+    return hotel
        
     }catch(e){
         throw e
     }
     
 }
+// updateHotelRating("Sunset Resort",{rating: 4.2})
 
-// UpdateHotelRating("Sunset Resort",{rating: 4.2})
 
 
 async function UpdateHotelPhoneNumber(phoneNumber,updatedPhoneNumber){
@@ -305,6 +306,7 @@ app.delete("/hotels/:hotelId", async(req,res) =>{
     }
 })
 
+
 async function deleteHotelByPhoneNumber(phoneNumber) {
     try{
         await Hotel.findOneAndDelete({phoneNumber:phoneNumber})
@@ -315,6 +317,35 @@ async function deleteHotelByPhoneNumber(phoneNumber) {
     }
 }
 // deleteHotelByPhoneNumber("+1997687392")
+
+//BE4.4_HW2
+async function updateByIdHotelRating(id,updatedRating){
+    try{
+        return await Hotel.findByIdAndUpdate({_id: id}, updatedRating,{new: true})
+    }
+    catch(e){
+        throw e
+    }
+}
+app.post("/hotels/rating/:hotelId",async(req,res) =>{
+    try{
+        const id = req.params.hotelId
+        const updatedHotel = await updateByIdHotelRating(id,req.body)
+
+        if(updatedHotel){
+            res.status(200).json({
+                updatedHotel: updatedHotel
+            })
+        }else{
+            res.status(404).send("Hotel not found by that id")
+        }
+
+    }catch(e){
+        throw e
+    }
+
+})
+
 
 const PORT = process.env.PORT
 

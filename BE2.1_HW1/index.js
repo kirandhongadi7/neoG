@@ -309,6 +309,32 @@ async function deleteRestaurantByName(resName){
 
 // deleteRestaurantByName("Cha Cha")
 
+//  BE4.4_HW1 Update cuisine
+async function updateResCuisine(resId,updetedCuisine){
+    try{
+          return await Restaurant.findByIdAndUpdate({_id:resId},updetedCuisine,{new:true})
+    }catch(e){
+        throw e 
+    }
+}
+
+app.post("/restaurants/cuisine/:cuisineId",async (req,res) =>{
+    try{
+        const cuisineId = req.params.cuisineId
+        const updatedResCuis = await updateResCuisine(cuisineId,req.body)
+    if(updatedResCuis){
+        res.status(200).json({
+            updatedRes: updatedResCuis
+        })
+    }
+    else{
+        res.status(404).send("Restaurant Id not found")
+    }
+    }catch(e){
+        throw e
+    }
+})
+
 const PORT = process.env.PORT || 3000
 
 initializeDatabase().then(() =>{
