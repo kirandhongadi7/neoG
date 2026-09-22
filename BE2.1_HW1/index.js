@@ -29,20 +29,32 @@ app.use(express.json())
 
 
 
-// async function seedData(newRestaurant){
+async function seedData(newRestaurant){
 
-//     try{
-//         const newRes = new Restaurant(newRestaurant)
-//         const resData = await newRes.save()
+    try{
+        const newRes = new Restaurant(newRestaurant)
+        const resData = await newRes.save()
+        return resData
 
-//         console.log("successfully seed of Restaurant",resData);
         
-//     }
-//     catch(e){
-//      console.log("Error while seeding",e);
+        
+    }
+    catch(e){
+     console.log("Error while seeding",e);
      
-//     }
-// }
+    }
+}
+app.post("/restaurants", async(req,res) =>{
+   try{
+     const newRes = await seedData(req.body)
+     res.status(200).json({
+        newRes : newRes
+     })
+   }catch(e){
+    res.status(500).json({error: "Failed to add Restaurant"})
+   }
+
+})
 
 
 // seedData(newRestaurant)

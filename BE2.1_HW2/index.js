@@ -35,7 +35,8 @@ async function seedData(newHotel){
 
         const newOne = new Hotel(newHotel)
         const savedData = await newOne.save() 
-        console.log("Seeded successfully in DB",savedData);
+        return savedData
+        // console.log("Seeded successfully in DB",savedData);
         
     }
     catch(e){
@@ -46,6 +47,20 @@ async function seedData(newHotel){
 
 
 // seedData(newHotel)
+app.post("/hotels",async (req,res)=>{
+try{
+const newHotel = await seedData(req.body)
+
+res.status(200).json({
+    newHotel: newHotel
+})
+}catch(e){
+    res.status(500).json({
+        error: "Failed  to seed data"
+    })
+}
+
+})
 
 async function logAllHotels(){
     try{
