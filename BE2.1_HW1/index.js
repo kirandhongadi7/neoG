@@ -269,7 +269,7 @@ try{
 async function deleteRestaurantById(resId){
     try{
          const res = await Restaurant.findByIdAndDelete(resId)
-         console.log("Deleted successfully");
+         return res
          
     }catch(e){
         throw e
@@ -277,6 +277,25 @@ async function deleteRestaurantById(resId){
 }
 
 // deleteRestaurantById("6aa56efc92e99469f32a2043")
+//  BE4.2_HW1, To delete a restaurant data by their ID
+
+app.delete("/restaurants/:restaurantId", async (req,res) =>{
+
+   try{
+     const resId = req.params.restaurantId
+
+     const deletedRes = await deleteRestaurantById(resId)
+
+     if(deletedRes){
+        res.status(400).json({
+            deletedRes:deletedRes
+        })
+     }
+   }catch(e){
+    console.log("Error while deleting",e);
+    
+   }
+})
 
 async function deleteRestaurantByName(resName){
     try{

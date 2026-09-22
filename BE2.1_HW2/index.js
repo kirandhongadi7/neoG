@@ -276,14 +276,34 @@ async function UpdateHotelPhoneNumber(phoneNumber,updatedPhoneNumber){
 
 async function deleteHotelById(hotelId){
     try{
-        await Hotel.findByIdAndDelete(hotelId)
-        console.log("Successfully Deleted");
+        return await Hotel.findByIdAndDelete(hotelId)
+        
+        // console.log("Successfully Deleted");
     }catch(e){
         throw e
     }
 }
 
 // deleteHotelById("6aa637db93a48307970b03e0")
+//BE4.3_HW2 to delete a hotel data by their ID in the Database
+
+app.delete("/hotels/:hotelId", async(req,res) =>{
+    try{
+        const hotelId = req.params.hotelId
+
+        const deletedHotel = await deleteHotelById(hotelId)
+
+        if(deletedHotel){
+            res.status(200).json({
+                deletedHotel: deletedHotel
+            })
+        }
+
+    }catch(e){
+        console.log("Error while deleting");
+        
+    }
+})
 
 async function deleteHotelByPhoneNumber(phoneNumber) {
     try{
