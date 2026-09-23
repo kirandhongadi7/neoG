@@ -1,40 +1,163 @@
 const {initializeDatabase} = require("./db/db.connect")
 const dns = require("dns")
-const fs = require("fs")
-const jsonData = fs.readFileSync("books.json", "utf-8")
-const bookData = JSON.parse(jsonData)
+const express = require("express")
+const app = express()
+app.use(express.json())
+require("dotenv").config()
+// const fs = require("fs")
+// const jsonData = fs.readFileSync("books.json", "utf-8")
+// const bookData = JSON.parse(jsonData)
 const Book = require("./models/bookSchema.model")
-
 dns.setServers(["1.1.1.1", "8.8.8.8"])
 
-
-initializeDatabase()
-
-async function seedData(){
-
-    try{
-        for(const book of bookData){
-            const newBook = new Book({
-                title: book.title,
-                author: book.author,
-                publishedYear:book.publishedYear,
-                genre: book.genre,
-                language: book.language,
-                country: book.country,
-                rating: book.rating,
-                summary: book.summary,
-                coverImageUrl: book.coverImageUrl
-            })
-            await newBook.save()
-            
-            
-        }
-        console.log("Data seed successfully");
-    }
-    catch(e){
-        console.log("Error while seeding",e);
-        
-    }
+//Q1
+async function createNewBook(newBook){
+         return await new Book(newBook).save()
 }
 
-seedData()
+app.post("/books",async (req,res) =>{
+    try{
+        const {title,author,publishedYear,genre,language,country,rating,summary,coverImageUrl} = req.body
+
+        if(!title || !author || !publishedYear || !genre || !language || !country ||  !rating){
+            res.status(400).json({
+                message: "All info must be required"
+            })
+            return
+        }
+
+        const newBook ={
+            title,
+            author,
+            publishedYear,
+            genre,
+            language,
+            country,
+            rating,
+            summary,
+            coverImageUrl
+        }
+
+        const newBookAdded = await createNewBook(newBook)
+        res.status(200).json({
+            message: "successfully added new book",
+            newBookAdded: newBookAdded
+        })
+    }catch(e){
+        throw e
+    }
+})
+//Q3
+async function logBooks(){
+    return await Book.find()
+}
+app.get("/books", async (req,res) =>{
+
+    try{
+        const allBooksData = await logBooks()
+    if(allBooksData.length === 0){
+        res.status(404).json({
+            Error: "Failed to fetch and Error"
+        })
+        return
+    }
+    res.status(200).json({
+        books: allBooksData
+    })
+    }catch(e){
+        res.status(500).json({
+      message: "Failed",
+      error: e.message
+    });
+    }
+
+})
+
+//Q4
+async function logBookByTitle(bookTitle){
+    return await Book.findOne({title:bookTitle})
+}
+app.get("/books/bookTitle/:title", async (req,res) =>{
+    try{
+        const bookTitle = req.params.title
+
+    const book = await logBookByTitle(bookTitle)
+    if(!book){
+        res.status(404).json({
+            message: "Book not found by that title."
+        })
+        return
+    }
+    res.status(200).json({
+        book: book
+    })
+    }catch(e){
+        throw e
+    }
+})
+
+//Q5
+async function logByAuthor(author){
+    return await Book.find({author:author})
+}
+
+app.get("/books/author/:author", async(req,res) =>{
+    try{
+        const author = req.params.author
+
+        const book = await logByAuthor(author)
+
+        if(book.length === 0){
+            res.status(404).json({
+                message: "Book not found by that author"
+            })
+            return
+        }
+        res.status(200).json({
+            book: book
+        })
+
+    }catch(e){
+        throw e
+    }
+
+
+})
+
+const PORT = process.env.PORT || 3000
+initializeDatabase().then(() =>{
+    app.listen(PORT,()=>{
+        console.log("Server connected successfully");  
+    })
+}).catch((e)=>{
+    console.log("Error while connecting DB");
+})
+
+// async function seedData(){
+
+//     try{
+//         for(const book of bookData){
+//             const newBook = new Book({
+//                 title: book.title,
+//                 author: book.author,
+//                 publishedYear:book.publishedYear,
+//                 genre: book.genre,
+//                 language: book.language,
+//                 country: book.country,
+//                 rating: book.rating,
+//                 summary: book.summary,
+//                 coverImageUrl: book.coverImageUrl
+//             })
+//             await newBook.save()
+            
+            
+//         }
+//         console.log("Data seed successfully");
+//     }
+//     catch(e){
+//         console.log("Error while seeding",e);
+        
+//     }
+// }
+
+// seedData()
