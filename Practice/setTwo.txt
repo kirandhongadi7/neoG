@@ -1,0 +1,71 @@
+1. What is the output?
+console.log(5 == "5");
+console.log(5 === "5");
+* output
+true
+false
+
+2.What is the output?
+console.log(10 % 3);
+* output
+1
+
+3.What is the output?
+let age= 20;
+
+if (age > 18) {
+console.log("Adult");
+} else {
+console.log("Minor");
+}
+* output
+Adult
+
+4.What is the output?
+
+if (0) {
+console.log("Hello");
+}else {
+console.log("World");
+}
+* output
+World
+
+
+5.What is the output?
+if ("0") {
+console.log("Yes");
+} else {
+console.log("No");
+}
+* output
+Yes
+
+6.What is the output?
+console.log(true && false);
+console.log(true || false);
+console.log(!true);
+* output
+false
+true
+false
+
+7.What is the output?
+console.log(5>3 && 8>10);
+* output
+false
+
+8.Predict the output.
+
+console.log(false || "Hello");
+* output
+true
+
+9.Predict the output?
+let a=5;
+
+if (a=5) {
+  console.log("Inside");
+}
+* output
+Inside
