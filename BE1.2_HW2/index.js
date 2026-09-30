@@ -92,7 +92,10 @@ app.get("/books/bookTitle/:title", async (req,res) =>{
         book: book
     })
     }catch(e){
-        throw e
+        res.status(500).json({
+      message: "Failed",
+      error: e.message
+    });
     }
 })
 
@@ -118,7 +121,10 @@ app.get("/books/author/:author", async(req,res) =>{
         })
 
     }catch(e){
-        throw e
+        res.status(500).json({
+      message: "Failed",
+      error: e.message
+    });
     }
 
 
@@ -130,7 +136,8 @@ async function logByGenre(){
 }
 
 app.get("/books/business", async(req,res) =>{
-    const businessGenre = await logByGenre()
+    try{
+        const businessGenre = await logByGenre()
 
     if(businessGenre.length ==0){
         res.status(404).json({
@@ -142,6 +149,13 @@ app.get("/books/business", async(req,res) =>{
     res.status(200).json({
         businessGenre: businessGenre
     })
+    }
+    catch(e){
+        res.status(500).json({
+      message: "Failed",
+      error: e.message
+    });
+    }
 })
 //7
 
@@ -163,7 +177,10 @@ app.get("/books/publishedYear/:year", async(req,res) =>{
         }
     )
     }catch(e){
-        throw e
+        res.status(500).json({
+      message: "Failed",
+      error: e.message
+    });
     }
 
 })
@@ -184,17 +201,21 @@ app.patch("/books/updateRating/:bookId", async (req,res) =>{
        })
 
     }catch(e){
-        throw e
+        res.status(500).json({
+      message: "Failed",
+      error: e.message
+    });
     }
 })
 
 //9
-app.patch("/books/updateByYear", async (req,res) =>{
+app.patch("/books/updateByTitle/:title", async (req,res) =>{
 
    try{
+    const title = req.params.title
     const {publishedYear,rating} = req.body
 
-    const updatedBook = await Book.findOneAndUpdate({publishedYear}, {rating}, {new:true})
+    const updatedBook = await Book.findOneAndUpdate({title}, {publishedYear,rating}, {new:true})
 
     if(!updatedBook){
         return res.status(404).send("Book does not found")
@@ -204,13 +225,17 @@ app.patch("/books/updateByYear", async (req,res) =>{
         updatedBook: updatedBook
     })
    }catch(e){
-    throw e
-   }
+        res.status(500).json({
+      message: "Failed",
+      error: e.message
+    });
+    }
 })
 //10
 
 app.delete("/books/delete/:id", async (req,res) =>{
-    const id = req.params.id
+    try{
+        const id = req.params.id
 
     const deletedBook = await Book.findByIdAndDelete(id)
     if(!deletedBook){
@@ -222,6 +247,12 @@ app.delete("/books/delete/:id", async (req,res) =>{
         message:"Book deleted successfully",
         deletedBook: deletedBook
     })
+    }catch(e){
+        res.status(500).json({
+      message: "Failed",
+      error: e.message
+    });
+    }
 })
 const PORT = process.env.PORT || 3000
 initializeDatabase().then(() =>{
