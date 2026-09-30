@@ -124,6 +124,105 @@ app.get("/books/author/:author", async(req,res) =>{
 
 })
 
+//6
+async function logByGenre(){
+    return await Book.find({genre: "Business"})
+}
+
+app.get("/books/business", async(req,res) =>{
+    const businessGenre = await logByGenre()
+
+    if(businessGenre.length ==0){
+        res.status(404).json({
+            message: "Not found Business genre"
+        })
+            return
+    } 
+
+    res.status(200).json({
+        businessGenre: businessGenre
+    })
+})
+//7
+
+async function logBypublishedYear(year){
+    return await Book.find({publishedYear: year})
+}
+app.get("/books/publishedYear/:year", async(req,res) =>{
+    try{
+        const year = await logBypublishedYear(Number(req.params.year))
+
+    if(year.length === 0){
+        res.status(404).send("Book Not Found Of That yearsOfService")
+        return
+    }
+
+    res.status(200).json(
+        {
+            bookByYear: year
+        }
+    )
+    }catch(e){
+        throw e
+    }
+
+})
+
+//8
+
+app.patch("/books/updateRating/:bookId", async (req,res) =>{
+    try{
+       const bookId = req.params.bookId
+       const updatedBook = await Book.findByIdAndUpdate(bookId, req.body, {new:true})
+
+       if(!updatedBook){
+        res.status(404).send("Book does not exist")
+        return 
+       }
+       res.status(200).json({
+        updatedRatingBook: updatedBook
+       })
+
+    }catch(e){
+        throw e
+    }
+})
+
+//9
+app.patch("/books/updateByYear", async (req,res) =>{
+
+   try{
+    const {publishedYear,rating} = req.body
+
+    const updatedBook = await Book.findOneAndUpdate({publishedYear}, {rating}, {new:true})
+
+    if(!updatedBook){
+        return res.status(404).send("Book does not found")
+    }
+
+    res.status(200).json({
+        updatedBook: updatedBook
+    })
+   }catch(e){
+    throw e
+   }
+})
+//10
+
+app.delete("/books/delete/:id", async (req,res) =>{
+    const id = req.params.id
+
+    const deletedBook = await Book.findByIdAndDelete(id)
+    if(!deletedBook){
+        return res.status(404).json({
+            message: "Book not found"
+        })
+    }
+    res.status(200).json({
+        message:"Book deleted successfully",
+        deletedBook: deletedBook
+    })
+})
 const PORT = process.env.PORT || 3000
 initializeDatabase().then(() =>{
     app.listen(PORT,()=>{
