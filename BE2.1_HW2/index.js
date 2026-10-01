@@ -3,7 +3,14 @@ const dns = require("dns")
 const Hotel = require("./models/hotelSchema.model")
 const express= require("express")
 const app = express()
+const cors = require("cors");
+const corsOptions = {
+  origin: "*",
+  credentials: true,
+  optionSuccessStatus: 200,
+};
 
+app.use(cors(corsOptions));
 app.use(express.json())
 
 dns.setServers(["1.1.1.1","8.8.8.8"])
