@@ -55,14 +55,14 @@ const HotelForm = () => {
       },
       body: JSON.stringify(hotelData),
     });
-
-    if(response.ok){
-        alert("Successfully Added")
+    const data = await response.json();
+    if(response.ok && data){
+        alert("Successfully Added, Please Reload")
     }else{
-        alert("Failed" || data.message)
+        alert(data.message || "All Fields Are Required" )
     }
 
-    const data = await response.json();
+    
     console.log(data);
     } catch (error) {
       console.log(error);

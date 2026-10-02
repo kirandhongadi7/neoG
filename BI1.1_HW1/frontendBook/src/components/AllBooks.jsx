@@ -1,7 +1,23 @@
-
+import { useState } from "react"
 import useFetch from "../useFetch"
 const AllBooks =()=>{
  const { data, loading, error} = useFetch("http://localhost:3000/books")
+const [success,setSuccess] = useState("")
+ const handleDelete = async(id) =>{
+  try{
+    const res = await fetch(`http://localhost:3000/books/delete/${id}`,{method: "DELETE"})
+    const data = await res.json()
+    if(res.ok && data){
+      setSuccess("Deleted Successfully")
+      window.location.reload()
+    }else{
+      alert("Failed to Delete")
+    }
+  }catch(e){
+    console.log(e);
+    
+  }
+ }
 
 
  if (loading) {
@@ -18,9 +34,10 @@ const AllBooks =()=>{
 
       <ul>
         {data?.books?.map((b) => (
-          <li key={b._id}>{b.title}</li>
+          <li key={b._id}>{b.title} <button onClick={() => handleDelete(b._id)}>Delete</button></li>
         ))}
       </ul>
+      <p>{success}</p>
     </div>
   )
 

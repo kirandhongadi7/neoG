@@ -8,10 +8,10 @@ const Hotel = ({name}) => {
     
   return (
     <div>
-        <h1>{data.name}</h1>
-        <p><strong>Location:- </strong> {data.location}</p>
-        <p><strong>Rating:-  </strong>{data.rating}</p>
-        <p><strong>Price Range:-  </strong>{data.priceRange}</p>
+        <h1>{data?.name}</h1>
+        <p><strong>Location:- </strong> {data?.location}</p>
+        <p><strong>Rating:-  </strong>{data?.rating}</p>
+        <p><strong>Price Range:-  </strong>{data?.priceRange}</p>
     </div>
   )
 }

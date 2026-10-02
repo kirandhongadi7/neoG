@@ -56,6 +56,27 @@ async function seedData(newHotel){
 // seedData(newHotel)
 app.post("/hotels",async (req,res)=>{
 try{
+    const {
+  name,
+  category,
+  location,
+  phoneNumber,
+  checkInTime,
+  checkOutTime
+} = req.body
+
+if (
+  !name ||
+  !category ||
+  !location ||
+  !phoneNumber ||
+  !checkInTime ||
+  !checkOutTime
+) {
+  return res.status(400).json({
+    error: "All required fields must be provided"
+  })
+}
 const newHotel = await seedData(req.body)
 
 res.status(200).json({
