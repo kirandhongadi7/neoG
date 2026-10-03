@@ -377,12 +377,12 @@ app.post("/hotels/rating/:hotelId",async(req,res) =>{
 
 const PORT = process.env.PORT
 
-initializeDatabase().then(()=>{
-    app.listen(PORT,()=>{
-    console.log("Server connected");
-    
-})
-}).catch((e) =>{
-    console.log("Failed to connect DB",e);
-    
-})
+initializeDatabase()
+  .then(() => {
+    console.log("Database connected successfully");
+  })
+  .catch((e) => {
+    console.log("Error while connecting DB:", e);
+  });
+
+module.exports = app;
