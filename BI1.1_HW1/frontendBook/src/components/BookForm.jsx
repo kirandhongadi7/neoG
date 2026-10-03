@@ -32,7 +32,7 @@ const BookForm = () =>{
 
 
         try{
-            const res = await fetch("http://localhost:3000/books",{
+            const res = await fetch("https://neo-g-kdc8.vercel.app/books",{
                 method: "POST",
                 headers: {
                     "Content-Type":"application/json"
