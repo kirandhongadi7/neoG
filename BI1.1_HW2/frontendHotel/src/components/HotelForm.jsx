@@ -48,7 +48,7 @@ const HotelForm = () => {
    
 
     try{
-        const response = await fetch("http://localhost:3000/hotels", {
+        const response = await fetch("https://neo-g.vercel.app/hotels", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

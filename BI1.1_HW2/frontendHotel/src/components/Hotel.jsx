@@ -1,6 +1,6 @@
 import useFetch from "../useFetch"
 const Hotel = ({name}) => {
-    const {data,loading,error} = useFetch(`http://localhost:3000/hotels/${name}`)
+    const {data,loading,error} = useFetch(`https://neo-g.vercel.app/hotels/${name}`)
     if(loading) return <p>Loading</p>
     if (error) return <p>Error, {error}</p>
     console.log(data);

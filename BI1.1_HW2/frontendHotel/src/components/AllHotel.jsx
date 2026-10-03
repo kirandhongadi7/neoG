@@ -2,7 +2,7 @@ import { useState } from "react"
 import useFetch from "../useFetch"
 
 const AllHotel = () => {
-    const {data, loading, error} = useFetch("http://localhost:3000/hotels")
+    const {data, loading, error} = useFetch("https://neo-g.vercel.app/hotels")
     const [sucessfullyMessage,setSucessfullyMessage]  = useState("")
 
     if(loading) return <p>Loading</p>
@@ -12,7 +12,7 @@ const AllHotel = () => {
 
     const handleDelete = async (id) =>{
         try{
-           const response =  await fetch(`http://localhost:3000/hotels/${id}`,{
+           const response =  await fetch(`https://neo-g.vercel.app/hotels/${id}`,{
           method: "DELETE"
          })
 
