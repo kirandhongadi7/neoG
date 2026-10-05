@@ -23,7 +23,7 @@ const EventDetails = () => {
   const { eventId } = useParams();
 
   const { data, loading, error } = useFetch(
-    "http://localhost:3000/events"
+    "https://neo-g-h23o.vercel.app/events"
   );
 
   if (loading) {
@@ -71,23 +71,18 @@ const EventDetails = () => {
 
       <main className="container my-5">
 
-        {/* Main Event Section */}
         <div className="row g-5">
 
-          {/* LEFT COLUMN */}
           <div className="col-lg-7">
 
-            {/* Event Type */}
             <span className="badge bg-danger mb-3">
               {event.type}
             </span>
 
-            {/* Title */}
             <h1 className="fw-bold mb-3">
               {event.title}
             </h1>
 
-            {/* Host */}
             <p className="text-muted mb-4">
               Hosted By:
               <br />
@@ -96,7 +91,7 @@ const EventDetails = () => {
               </strong>
             </p>
 
-            {/* Event Image */}
+         
             <img
               src={event.imageUrl}
               alt={event.title}
@@ -107,7 +102,7 @@ const EventDetails = () => {
               }}
             />
 
-            {/* Description */}
+        
             <h4 className="fw-bold mb-3">
               Details
             </h4>
@@ -118,7 +113,6 @@ const EventDetails = () => {
 
             <hr className="my-4" />
 
-            {/* Additional Information */}
             <h4 className="fw-bold mb-3">
               Additional Information
             </h4>
@@ -155,7 +149,6 @@ const EventDetails = () => {
 
             </div>
 
-            {/* Tags */}
             <h4 className="fw-bold mt-4 mb-3">
               Event Tags
             </h4>
@@ -173,15 +166,12 @@ const EventDetails = () => {
 
           </div>
 
-          {/* RIGHT COLUMN */}
           <div className="col-lg-5">
 
-            {/* Event Information Card */}
             <div className="card shadow-sm border-0 mb-4">
 
               <div className="card-body p-4">
 
-                {/* Date */}
                 <div className="d-flex mb-4">
                   <div className="fs-4 me-3">
                     🕒
@@ -202,7 +192,6 @@ const EventDetails = () => {
                   </div>
                 </div>
 
-                {/* Location */}
                 <div className="d-flex mb-4">
                   <div className="fs-4 me-3">
                     📍
@@ -222,8 +211,6 @@ const EventDetails = () => {
                     </p>
                   </div>
                 </div>
-
-                {/* Price */}
                 <div className="d-flex">
                   <div className="fs-4 me-3">
                     💰
@@ -246,8 +233,6 @@ const EventDetails = () => {
 
               </div>
             </div>
-
-            {/* Speakers */}
             <h4 className="fw-bold mb-3">
               Speakers ({event.speakers?.length || 0})
             </h4>

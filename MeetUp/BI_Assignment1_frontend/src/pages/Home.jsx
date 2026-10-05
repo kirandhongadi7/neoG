@@ -17,7 +17,7 @@ function formatDate(date) {
 
 const Home = () => {
   const { data, loading, error } = useFetch(
-    "http://localhost:3000/events"
+    "https://neo-g-h23o.vercel.app/events"
   );
 
   const [search, setSearch] = useState("");
