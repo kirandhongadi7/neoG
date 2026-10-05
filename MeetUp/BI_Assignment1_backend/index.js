@@ -267,11 +267,12 @@ app.get("/events", async (req,res) =>{
 
 const PORT = process.env.PORT || 3000
 
-initializeDatabase().then(() =>{
-    app.listen(PORT,() =>{
-        console.log("Sever Started");
-    })
-}).catch((e) =>{
-    console.log("Failed to connect DB", e);
-    
-})
+initializeDatabase().then(() => {
+    console.log("Database connected successfully");
+  })
+  .catch((e) => {
+    console.log("Error while connecting DB:", e);
+  });
+
+module.exports = app
+
