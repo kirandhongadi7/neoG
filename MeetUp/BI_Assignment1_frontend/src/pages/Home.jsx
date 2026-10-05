@@ -2,6 +2,7 @@ import { useState } from "react";
 import Navbar from "../components/Navbar";
 import useFetch from "../useFetch";
 import { Link } from "react-router-dom";
+import Footer from "../components/Footer";
 function formatDate(date) {
   return new Intl.DateTimeFormat("en-IN", {
     weekday: "short",
@@ -38,10 +39,17 @@ const Home = () => {
   const filteredEvents = events.filter((event) => {
     const matchesType =
       selectedType === "All Type" || event.type === selectedType;
-    const matchesSearch =
-      event.title?.toLowerCase().includes(searchQuery) ?? false;
+    const matchesTitle =
+    event.title?.toLowerCase().includes(searchQuery) ?? false;
 
-    return matchesType && matchesSearch;
+  const matchesTag =
+    event.tags?.some((tag) =>
+      tag.toLowerCase().includes(searchQuery)
+    ) ?? false;
+
+  const matchesSearch = matchesTitle || matchesTag;
+
+  return matchesType && matchesSearch;
   });
 
   return (
@@ -139,6 +147,7 @@ const Home = () => {
 
         </div>
       </div>
+      <Footer />
     </div>
   );
 };
