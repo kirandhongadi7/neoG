@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Blog</title>
+    <style>
+        .container{
+           margin: 2.5rem;
+        }
+        .title-bar{
+            background-color: dimgray;
+            color: white;
+            font-weight: 600;
+            font-size: 30px;
+            font-family:Arial, Helvetica, sans-serif;
+            text-align: center;
+            border-radius:5px; 
+            padding: 15px;
+        }
+        .title{
+            margin: 0px;
+        }
+       
+        .nav{
+            background-color: grey;
+            border-radius: 5px;
+            margin: 2rem 0rem;
+           
+
+        }
+.list {
+    list-style: none;
+    margin: 0;
+    text-align: center;
+    padding: 1.5rem 0;
+}
+.list-group {
+    display: inline-block;
+    margin: 0 30px;
+}
+
+.list-group a{
+    text-decoration: none;
+    color: white;
+    font-size: larger;
+}
+.list-group a:hover{
+    text-decoration: underline;
+    cursor: pointer;
+}
+.blog-post{
+    border-radius: 5px;
+    border: 2px solid grey;
+    text-align: center;
+    margin-bottom: 2rem ;
+}
+.blog-post h1{
+    font-size: 40px;
+    font-weight: 400;
+}
+
+.post-preview {
+    border: 2px solid grey;
+    border-radius: 5px;
+    margin-bottom: 2rem;
+    padding: 15px 25px;
+}
+.post-preview h1 {
+    margin: 0;
+    font-size: 28px;
+    font-weight: 400;
+}
+.posts-div {
+    border: 2px solid grey;
+    border-radius: 5px;
+    margin-bottom: 2rem;
+    padding: 10px 20px;
+}
+.posts-div ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+.posts-div ul li {
+    padding: 15px 10px;
+    border-bottom: 1px solid grey;
+    font-size: 18px;
+}
+    </style>
+</head>
+<body>
+    <div class="container">
+          <div>
+            <div class="title-bar">
+                <h1 class="title">Blog Title</h1>
+            </div>
+            <div class="nav">
+                <ul class="list">
+                    <li class="list-group"><a href="/">Home</a></li>
+                    <li class="list-group"><a href="/about">About</a></li>
+                    <li class="list-group"><a href="/contact">Contack</a></li>
+                </ul>
+            </div>
+
+            <div class="blog-post">
+                <h1>Blog Post Title</h1>
+            </div>
+
+            <div class="post-preview">
+                <h1>Blog Post Content Preview</h1>
+            </div>
+
+            <div class="posts-div">
+                <ul>
+                    <li class="post">Post 1</li>
+                    <li class="post">Post 2</li>
+                    <li class="post">Post 3</li>
+                </ul>
+            </div>
+
+            <div class="nav">
+                <ul class="list">
+                    <li class="list-group ">
+                        <a  class="list-group a" a href="/Contact">Contact</a>
+                    </li>
+                    <li class="list-group">
+                        <a class="list-group a" href="/policy">Privecy Policy</a>
+                    </li>
+                </ul>
+            </div>
+          </div>
+    </div>  
+</body>
+</html>
